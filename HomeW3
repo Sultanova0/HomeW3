@@ -1,0 +1,40 @@
+class Ring:
+    def _init_(self, brand, size, price):
+        self.brand = brand
+        self.size = size
+        self.price = price
+
+class RingStore:
+    def _init_(self):
+        self.stock = []
+    def add_ring(self, brand, size, price):
+        ring = Ring(brand, size, price)
+        self.stock.append(ring)
+        print("Был добавлен :" + brand + ' ' + str(price) + ' ' + str(size))
+    def display_stock(self):
+        if self.stock == []:
+            print("В наличий нету ничего")
+        else:
+            print("Вот кольцо:")
+            for ring in self.stock:
+                print(ring.brand, ring.size, ring.price)
+    def buy_ring(self, brand, size, budget):
+        for ring in self.stock:
+            if ring.brand == brand and ring.size == size:
+                if(budget >= ring.price):
+                    self.stock.remove(ring)
+                    print("Ты купил:" + brand + ' ' + str(size))
+                    return
+                else:
+                    print("Мало денег")
+                    return
+        print("Такого бренда нет в наличии")
+
+
+store = RingStore()
+store.add_ring('Cartier', 18, 200000)
+
+budget = int(input())
+
+store.buy_ring('Cartier', 18, budget)
+store.display_stock()
